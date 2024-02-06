@@ -23,9 +23,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('updateData', () => {
-
         socket.broadcast.emit('updateData', {
-
         });
     });
 });

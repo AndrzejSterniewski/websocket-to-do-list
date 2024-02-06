@@ -19,7 +19,7 @@ const App = () => {
 
     // socket.on('updateData', (tasks) => updateTasks(tasks));
     socket.on('addTask', (task) => addTask(task));
-    socket.on('removeTask', (id) => removeTask(id, true));
+    socket.on('removeTask', (id) => removeTask(id));
 
     return () => {
       socket.disconnect();
@@ -28,10 +28,12 @@ const App = () => {
 
   const addTask = (task) => {
     setTasks(tasks => [...tasks, task]);
+    socket.emit(tasks);
   };
 
   const removeTask = (id) => {
     setTasks(tasks => tasks.filter(task => task.id !== id));
+    socket.emit('tasks', setTasks);
   };
 
   const submitForm = (e) => {
