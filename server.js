@@ -10,6 +10,7 @@ let tasks = [];
 
 io.on('connection', (socket) => {
 
+    // przekazywanie użytkownikowi listy tasków, całej tablicy z taskami
     socket.emit('updateData', tasks);
 
     socket.on('addTask', (task) => {
@@ -18,12 +19,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('removeTask', (id) => {
-        const tasksToDo = tasks.filter(task => task.id !== id);
+        tasks = tasks.filter(task => task.id !== id);
         socket.broadcast.emit('removeTask', id);
-    });
-
-    socket.on('updateData', () => {
-        socket.broadcast.emit('updateData', {
-        });
     });
 });
